@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jawad Mohammed Sadeq</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --white: #FBFBFD;
+    --black: #000000;
+    --near-black: #1D1D1F;
+    --grey-bg: #F5F5F7;
+    --grey-text: #6E6E73;
+    --blue: #0071E3;
+    --line: rgba(0,0,0,0.08);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --white: #000000;
+      --black: #FBFBFD;
+      --near-black: #F5F5F7;
+      --grey-bg: #1D1D1F;
+      --grey-text: #A1A1A6;
+      --line: rgba(255,255,255,0.12);
+    }
+  }
+  :root[data-theme="dark"] {
+    --white: #000000;
+    --black: #FBFBFD;
+    --near-black: #F5F5F7;
+    --grey-bg: #1D1D1F;
+    --grey-text: #A1A1A6;
+    --line: rgba(255,255,255,0.12);
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: calc(52px + env(safe-area-inset-top, 0px)); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--white);
+    color: var(--near-black);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------------- nav ---------------- */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--white) 78%, transparent);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .navrow {
+    max-width: 1024px;
+    margin: 0 auto;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    padding: 0 20px;
+  }
+  .navrow a { color: var(--near-black); text-decoration: none; font-size: 13px; opacity: 0.8; transition: opacity .2s; white-space: nowrap; }
+  .navrow a:hover, .navrow a:focus-visible { opacity: 1; }
+  .navrow .me { font-weight: 600; margin-right: auto; }
+  @media (max-width: 620px) { .navrow { gap: 18px; } .navrow a:not(.me) { font-size: 12px; } }
+  @media (max-width: 460px) { .navrow a.hide-xs { display: none; } }
+
+  /* ---------------- reveal ---------------- */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.22,.61,.36,1), transform 1s cubic-bezier(.22,.61,.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.d1 { transition-delay: .08s; }
+  .reveal.d2 { transition-delay: .16s; }
+  .reveal.d3 { transition-delay: .24s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------------- hero ---------------- */
+  .hero {
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 20%, color-mix(in srgb, var(--blue) 10%, transparent), transparent 60%), var(--white);
+    padding: 100px 24px 60px;
+    position: relative;
+  }
+  .hero .eyebrow { font-size: 15px; color: var(--grey-text); margin-bottom: 18px; }
+  .hero h1 {
+    font-size: clamp(44px, 9vw, 104px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin: 0 0 20px;
+  }
+  .hero p.sub {
+    font-size: clamp(19px, 2.4vw, 26px);
+    color: var(--grey-text);
+    font-weight: 500;
+    max-width: 700px;
+    margin: 0 0 36px;
+    line-height: 1.35;
+  }
+  .cta-row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 980px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: transform .2s, opacity .2s;
+  }
+  .btn:hover { transform: scale(1.03); }
+  .btn.primary { background: var(--blue); color: #fff; }
+  .btn.ghost { color: var(--blue); }
+
+  .scrollcue {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 34px;
+    border: 1.5px solid var(--grey-text);
+    border-radius: 14px;
+    opacity: .6;
+  }
+  .scrollcue::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 50%;
+    width: 4px; height: 4px;
+    margin-left: -2px;
+    background: var(--grey-text);
+    border-radius: 50%;
+    animation: sc 1.6s ease-in-out infinite;
+  }
+  @keyframes sc { 0% { opacity: 1; top: 6px; } 70% { opacity: 0; top: 20px; } 100% { opacity: 0; top: 6px; } }
+  @media (prefers-reduced-motion: reduce) { .scrollcue::before { animation: none; } }
+
+  /* ---------------- feature sections ---------------- */
+  section.feature {
+    padding: 140px 24px;
+  }
+  section.feature.dark { background: var(--near-black); color: var(--white); }
+  section.feature.grey { background: var(--grey-bg); }
+  .fwrap { max-width: 820px; margin: 0 auto; text-align: center; }
+  .fwrap.wide { max-width: 1024px; }
+  .tag { font-size: 15px; color: var(--blue); font-weight: 600; margin-bottom: 16px; }
+  section.feature.dark .tag { color: #2997FF; }
+  h2.big {
+    font-size: clamp(34px, 6vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 22px;
+  }
+  p.lead {
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--grey-text);
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto 8px;
+  }
+  section.feature.dark p.lead { color: #A1A1A6; }
+
+  /* incident block */
+  .incident-quote {
+    margin-top: 56px;
+    font-size: clamp(22px, 3.4vw, 36px);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .incident-quote .hi { color: #2997FF; }
+  .stat-row { display: flex; justify-content: center; gap: 60px; margin-top: 64px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: clamp(34px, 5vw, 54px); font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 14px; color: #A1A1A6; }
+
+  /* job card list, apple "specs" style */
+  .speclist { text-align: left; max-width: 720px; margin: 64px auto 0; border-top: 1px solid var(--line); }
+  .specrow { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .specrow .k { font-size: 15px; color: var(--grey-text); }
+  .specrow .v { font-size: 17px; line-height: 1.5; }
+  @media (max-width: 620px) { .specrow { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* skills grid */
+  .skillgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    margin-top: 56px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .skillcell { background: var(--white); padding: 36px 32px; text-align: left; }
+  section.feature.grey .skillcell { background: var(--grey-bg); }
+  .skillcell h3 { font-size: 19px; font-weight: 600; margin: 0 0 10px; }
+  .skillcell p { font-size: 15px; color: var(--grey-text); line-height: 1.6; margin: 0; }
+  @media (max-width: 620px) { .skillgrid { grid-template-columns: 1fr; border-radius: 18px; } }
+
+  /* project */
+  .project-card {
+    margin-top: 56px;
+    background: linear-gradient(160deg, #1D1D1F, #000);
+    color: #fff;
+    border-radius: 28px;
+    padding: 56px 40px;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .project-card h3 { font-size: 30px; font-weight: 700; margin: 0 0 6px; }
+  .project-card .sub { color: #A1A1A6; font-size: 15px; margin-bottom: 26px; }
+  .project-card ul { margin: 0; padding-left: 20px; columns: 1; }
+  .project-card li { font-size: 16px; line-height: 1.6; margin-bottom: 12px; color: #E8E8ED; }
+  @media (min-width: 720px) { .project-card ul { columns: 2; column-gap: 40px; } .project-card li { break-inside: avoid; } }
+
+  /* education */
+  .edugrid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: left; margin-top: 56px; max-width: 900px; margin-left: auto; margin-right: auto; }
+  @media (max-width: 620px) { .edugrid { grid-template-columns: 1fr; } }
+  .edugrid h4 { font-size: 13px; text-transform: none; color: var(--grey-text); margin: 0 0 16px; font-weight: 600; }
+  .edu-item { margin-bottom: 18px; }
+  .edu-item .t { font-size: 16px; font-weight: 600; }
+  .edu-item .d { font-size: 14px; color: var(--grey-text); margin-top: 2px; }
+
+  /* footer */
+  footer {
+    background: var(--near-black);
+    color: var(--white);
+    padding: 80px 24px 40px;
+    text-align: center;
+  }
+  footer h2 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 26px; }
+  .foot-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .foot-links a { color: #fff; text-decoration: none; font-size: 17px; border-bottom: 1px solid rgba(255,255,255,.3); padding-bottom: 3px; transition: opacity .2s; }
+  .foot-links a:hover { opacity: .7; }
+  .foot-fine { font-size: 12px; color: #86868B; border-top: 1px solid rgba(255,255,255,.15); padding-top: 24px; max-width: 900px; margin: 0 auto; }
+
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="navrow">
+    <a href="#top" class="me">Jawad Sadeq</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills" class="hide-xs">Skills</a>
+    <a href="#project">Project</a>
+    <a href="#education" class="hide-xs">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="eyebrow reveal visible">IT Officer — Software Engineer</div>
+  <h1 class="reveal visible">Jawad Mohammed<br>Sadeq.</h1>
+  <p class="sub reveal visible d1">Keeps enterprise systems running and builds what runs on them — from biometric HR platforms to live-event networks. Based in Riyadh.</p>
+  <div class="cta-row reveal visible d2">
+    <a class="btn primary" href="#experience">See the work</a>
+    <a class="btn ghost" href="#contact">Get in touch</a>
+  </div>
+  <div class="scrollcue"></div>
+</header>
+
+<section class="feature" id="experience">
+  <div class="fwrap reveal">
+    <div class="tag">Rotana Music — Jan 2026 to present</div>
+    <h2 class="big">One hour to showtime.<br>Zero documentation.</h2>
+    <p class="lead">Rain took out 30 VIP TV boxes and 77 security cameras before a live concert. Jawad traced it to a physical-layer fault and had the network fully restored in 30 minutes.</p>
+    <div class="incident-quote reveal d1">That instinct — <span class="hi">diagnose fast, fix under pressure</span> — carries through everything he builds.</div>
+    <div class="stat-row reveal d2">
+      <div class="stat"><b>30 min</b><span>network fully restored</span></div>
+      <div class="stat"><b>4</b><span>countries supported</span></div>
+      <div class="stat"><b>40</b><span>employee records repaired</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="feature grey">
+  <div class="fwrap wide reveal">
+    <div class="tag">Day to day</div>
+    <h2 class="big">Systems, software,<br>and everything between.</h2>
+    <div class="speclist">
+      <div class="specrow"><div class="k">HRMS platform</div><div class="v">Shipped a multi-page administrative employee search tool and a region-specific announcement system, live across Saudi Arabia, Lebanon, Egypt, and the UAE.</div></div>
+      <div class="specrow"><div class="k">SaaS evaluation</div><div class="v">Diagnosed a critical API sync failure between Palm HR and BioTime biometric hardware — findings justified building a custom in-house HRMS from scratch.</div></div>
+      <div class="specrow"><div class="k">Data integrity</div><div class="v">Redesigned the biometric ID scheme after a multi-region server consolidation created duplicate IDs for 40 employees — with zero attendance data lost.</div></div>
+      <div class="specrow"><div class="k">Operations</div><div class="v">Owns network infrastructure, biometric/HRMS administration, and employee onboarding across a multi-country environment.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="feature" id="skills">
+  <div class="fwrap wide reveal">
+    <div class="tag">Toolkit</div>
+    <h2 class="big">Built for both<br>the network and the code.</h2>
+    <div class="skillgrid">
+      <div class="skillcell"><h3>Systems &amp; infrastructure</h3><p>Enterprise network troubleshooting (OSI physical/data-link layer), RJ45 termination, biometric systems (ZKTime, BioTime), HRMS/SaaS evaluation, Windows deployment, Microsoft 365/Outlook administration.</p></div>
+      <div class="skillcell"><h3>Development</h3><p>Python, Java, JavaScript (Node.js, React), PHP, HTML/CSS.</p></div>
+      <div class="skillcell"><h3>Databases</h3><p>SQL, MongoDB, database normalization, entity integrity &amp; key design.</p></div>
+      <div class="skillcell"><h3>Tools &amp; practice</h3><p>Git/GitHub, Macrium Reflect, SaaS requirements analysis, Agile SDLC, technical documentation, vendor management.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feature dark" id="project">
+  <div class="fwrap wide reveal">
+    <div class="tag">Personal project</div>
+    <h2 class="big">Hala Saudi.</h2>
+    <p class="lead">An AI-powered tourism platform for exploring Saudi Arabia — built end to end, front to back.</p>
+    <div class="project-card">
+      <h3>Hala Saudi</h3>
+      <div class="sub">AI tourism platform — personal / team project</div>
+      <ul>
+        <li>Full-stack platform with advanced search and filtering across destinations, hotels, and restaurants.</li>
+        <li>AI-powered itinerary planner generating personalized schedules from preferences and trip length.</li>
+        <li>Smart recommendation engine based on user behavior and ratings.</li>
+        <li>Favorites, reviews, and ratings to drive engagement and repeat use.</li>
+        <li>Real-time admin dashboard for non-technical staff to manage listings.</li>
+        <li>Scalable, secure backend with a responsive front end, built with a team using Git.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature" id="education">
+  <div class="fwrap wide reveal">
+    <div class="tag">Foundation</div>
+    <h2 class="big">Where it started.</h2>
+    <div class="edugrid">
+      <div>
+        <h4>Education</h4>
+        <div class="edu-item">
+          <div class="t">B.Sc. Software Engineering — Cyber Security Concentration</div>
+          <div class="d">Prince Sultan University · Graduated Dec 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="t">25-week cooperative placement</div>
+          <div class="d">Enterprise IT systems administration, network engineering, HRMS web development</div>
+        </div>
+      </div>
+      <div>
+        <h4>Certifications &amp; languages</h4>
+        <div class="edu-item">
+          <div class="t">Programming for Everybody</div>
+          <div class="d">University of Michigan, Coursera · March 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="t">Arabic — Native · English — Professional proficiency</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <h2 class="reveal">Let's talk.</h2>
+  <div class="foot-links reveal d1">
+    <a href="mailto:jawadmsadeq@gmail.com">jawadmsadeq@gmail.com</a>
+    <a href="tel:+966564861008">+966 56 486 1008</a>
+    <span style="color:#A1A1A6;">Riyadh, Saudi Arabia</span>
+  </div>
+  <div class="foot-fine">© 2026 Jawad Mohammed Sadeq. Last updated September 2026.</div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal:not(.visible)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+</body>
+</html>
