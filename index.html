@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jawad Mohammed Sadeq — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F0F7;
+    --panel: #E8E3F0;
+    --ink: #1E1B2E;
+    --muted: #5D5873;
+    --line: #CFC8DD;
+    --accent: #3D4DF0;
+    --accent-ink: #FFFFFF;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #17141F; --panel: #221E2E; --ink: #EDEAF5; --muted: #A49FB8;
+      --line: #38324A; --accent: #8E9BFF; --accent-ink: #14112A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17141F; --panel: #221E2E; --ink: #EDEAF5; --muted: #A49FB8;
+    --line: #38324A; --accent: #8E9BFF; --accent-ink: #14112A;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 1.0625rem/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.5rem; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* Header */
+  header { padding: 1.5rem 0; }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .brand { font: 800 1.125rem var(--display); text-decoration: none; }
+  nav { display: flex; gap: 1.5rem; }
+  nav a { text-decoration: none; color: var(--muted); font-weight: 500; }
+  nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; }
+
+  /* Hero */
+  .hero { padding: 4.5rem 0 3.5rem; }
+  .hero h1 {
+    font: 800 clamp(3rem, 11vw, 7.5rem)/0.95 var(--display);
+    letter-spacing: -0.035em; margin: 0 0 1.75rem;
+    font-variation-settings: "opsz" 96;
+  }
+  .hero p { max-width: 34rem; font-size: 1.25rem; color: var(--muted); margin: 0; }
+
+  /* Sections */
+  section { padding: 3.5rem 0; border-top: 1px solid var(--line); }
+  h2 { font: 800 clamp(1.75rem, 4vw, 2.5rem)/1.1 var(--display); letter-spacing: -0.02em; margin: 0 0 0.75rem; }
+  .lede { color: var(--muted); max-width: 36rem; margin: 0 0 2.5rem; }
+
+  /* Skills */
+  .groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2.5rem 2rem; }
+  .group h3 { font: 600 1rem var(--body); color: var(--muted); margin: 0 0 0.75rem; }
+  .group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .skill {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    padding: 0.7rem 0.9rem; border-radius: 10px; border: 1.5px solid var(--line);
+    background: transparent; color: var(--ink); font: 500 1rem var(--body); cursor: pointer; text-align: left;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .skill:hover { border-color: var(--ink); }
+  .skill[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .dots { display: inline-flex; gap: 4px; flex: none; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .22; }
+  .dots i.on { opacity: 1; }
+  .clear {
+    margin-top: 2rem; background: none; border: 0; padding: 0; font: 500 1rem var(--body);
+    color: var(--accent); text-decoration: underline; text-underline-offset: 4px; cursor: pointer;
+  }
+  .clear[hidden] { display: none; }
+
+  /* Projects */
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .project {
+    display: grid; grid-template-columns: 1fr; gap: 0.5rem;
+    padding: 1.5rem 1.25rem; margin: 0 -1.25rem; border-radius: 14px;
+    transition: background .2s, opacity .2s;
+  }
+  .project + .project { border-top: 1px solid var(--line); border-radius: 0 0 14px 14px; }
+  .project h3 { font: 800 1.5rem/1.2 var(--display); margin: 0; letter-spacing: -0.01em; }
+  .project p { margin: 0; color: var(--muted); max-width: 40rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+  .tag { font-size: 0.875rem; padding: 0.15rem 0.6rem; border-radius: 99px; background: var(--panel); color: var(--muted); }
+  .tag.hit { background: var(--accent); color: var(--accent-ink); }
+  body.filtering .project { opacity: .4; }
+  body.filtering .project.match { opacity: 1; background: var(--panel); }
+
+  /* Contact */
+  .contact a.big {
+    display: inline-block; font: 800 clamp(1.5rem, 5vw, 2.75rem)/1.15 var(--display);
+    letter-spacing: -0.02em; word-break: break-word;
+    text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px;
+    text-decoration-color: var(--accent);
+  }
+  .links { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9375rem; }
+
+  @media (min-width: 46rem) {
+    .project { grid-template-columns: 1fr 1.6fr; gap: 2rem; }
+    .tags { grid-column: 2; margin-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" id="brand">Jawad Mohammed Sadeq</a>
+    <nav aria-label="Main">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1 id="name">Jawad Mohammed Sadeq</h1>
+    <p id="tagline"></p>
+  </div>
+
+  <section id="skills">
+    <div class="wrap">
+      <h2>Skills</h2>
+      <p class="lede">Dots show how comfortable I am with each one. Select any skill to see where I used it.</p>
+      <div class="groups" id="groups"></div>
+      <button class="clear" id="clear" hidden>Clear selection</button>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2>Projects</h2>
+      <p class="lede" id="projects-lede">What I have built.</p>
+      <ol class="projects" id="projects"></ol>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <p class="lede">IT Officer at Rotana Music since January 2026, supporting the Technology and Information Department for offices in Saudi Arabia, Lebanon, Egypt and the UAE. Four things I have done there.</p>
+      <ol class="projects" id="experience-list"></ol>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <h2>Education</h2>
+      <ol class="projects" id="education-list"></ol>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Get in touch</h2>
+      <p class="lede" id="about"></p>
+      <a class="big" id="email" href="#"></a>
+      <div class="links" id="links"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span id="year"></span> <span id="footname"></span></div>
+</footer>
+
+<script>
+  /* ------------------------------------------------------------
+     EDIT THIS BLOCK — everything on the page comes from here.
+     level: 1 (learning) to 5 (expert)
+     ------------------------------------------------------------ */
+  const SITE = {
+    name: "Jawad Mohammed Sadeq",
+    tagline: "Software engineer and IT officer at Rotana Music in Riyadh. I keep networks and HR systems running across four countries, and I build web tools for the people who use them.",
+    about: "I'm based in Riyadh and work in English (professional) and Arabic (native). Get in touch about roles, projects, or collaboration.",
+    email: "jawadmsadeq@gmail.com",
+    links: [],
+    skills: {
+      "Development": [
+        { name: "Python", level: 4 },
+        { name: "Java", level: 3 },
+        { name: "JavaScript", level: 4 },
+        { name: "Node.js", level: 3 },
+        { name: "React", level: 3 },
+        { name: "PHP", level: 3 },
+        { name: "HTML/CSS", level: 4 }
+      ],
+      "Databases": [
+        { name: "SQL", level: 4 },
+        { name: "MongoDB", level: 3 },
+        { name: "Database design", level: 4 }
+      ],
+      "Systems & infrastructure": [
+        { name: "Network troubleshooting", level: 4 },
+        { name: "Biometric systems", level: 4 },
+        { name: "HRMS & SaaS evaluation", level: 4 },
+        { name: "Microsoft 365 administration", level: 4 },
+        { name: "Windows deployment", level: 3 }
+      ],
+      "Practice": [
+        { name: "Git & GitHub", level: 4 },
+        { name: "Agile SDLC", level: 3 },
+        { name: "Technical documentation", level: 4 },
+        { name: "Vendor management", level: 3 }
+      ]
+    },
+    projects: [
+      {
+        title: "Hala Saudi, AI tourism platform",
+        description: "A full-stack platform, built with a team, for finding destinations, hotels and restaurants across Saudi Arabia. It has an AI itinerary planner that builds a travel schedule from your preferences and trip length, a recommendation engine, and favorites, reviews and ratings. A real-time admin dashboard lets non-technical staff update listings and watch activity. The backend is built to scale and the front end works on desktop and mobile.",
+        skills: ["JavaScript", "React", "Node.js", "MongoDB", "HTML/CSS", "Git & GitHub"]
+      }
+    ],
+    experience: [
+      {
+        title: "Restored a live concert's network in 30 minutes",
+        description: "Rain knocked out 30 VIP TV boxes and 77 security cameras an hour before showtime. With no documentation to work from, I found the physical-layer fault and brought everything back in time.",
+        skills: ["Network troubleshooting", "Technical documentation"]
+      },
+      {
+        title: "Found why HR and biometric systems stopped syncing",
+        description: "Diagnosed a failed API sync between the Palm HR platform and BioTime biometric hardware. My vendor talks and a formal SaaS evaluation helped leadership decide to build an in-house HRMS.",
+        skills: ["HRMS & SaaS evaluation", "Biometric systems", "Vendor management"]
+      },
+      {
+        title: "Built two features for the in-house HRMS",
+        description: "In PHP and JavaScript, I delivered a multi-page admin employee search and an announcement system that targets each region. Both are used by offices in Saudi Arabia, Lebanon, Egypt and the UAE.",
+        skills: ["PHP", "JavaScript", "Agile SDLC"]
+      },
+      {
+        title: "Fixed duplicate biometric IDs for 40 employees",
+        description: "A multi-region server consolidation gave 40 people the same biometric ID. I redesigned the ID scheme and lost no attendance data.",
+        skills: ["Database design", "SQL", "Biometric systems"]
+      }
+    ],
+    education: [
+      {
+        title: "B.Sc. Software Engineering, Cyber Security, Prince Sultan University",
+        description: "Graduated December 2025. Coursework in software engineering, database management systems, computer networks and project management. Finished a 25-week co-op in IT systems administration, network engineering and HRMS web development.",
+        skills: ["Database design", "Network troubleshooting", "Agile SDLC"]
+      },
+      {
+        title: "Programming for Everybody (Getting Started with Python)",
+        description: "Certificate from the University of Michigan on Coursera, March 2025.",
+        skills: ["Python"]
+      }
+    ]
+  };
+
+  /* ---------------- Rendering ---------------- */
+  const $ = id => document.getElementById(id);
+  const selected = new Set();
+
+  document.title = SITE.name + " — Portfolio";
+  $("name").textContent = SITE.name;
+  $("brand").textContent = SITE.name;
+  $("footname").textContent = SITE.name;
+  $("year").textContent = "© " + new Date().getFullYear();
+  $("tagline").textContent = SITE.tagline;
+  $("about").textContent = SITE.about;
+  const email = $("email");
+  email.textContent = SITE.email;
+  email.href = "mailto:" + SITE.email;
+  SITE.links.forEach(l => {
+    const a = document.createElement("a");
+    a.href = l.url; a.textContent = l.label; a.target = "_blank"; a.rel = "noopener";
+    $("links").appendChild(a);
+  });
+
+  Object.entries(SITE.skills).forEach(([group, list]) => {
+    const div = document.createElement("div");
+    div.className = "group";
+    const h = document.createElement("h3");
+    h.textContent = group;
+    const ul = document.createElement("ul");
+    list.forEach(s => {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.className = "skill";
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", "false");
+      btn.dataset.skill = s.name;
+      const label = document.createElement("span");
+      label.textContent = s.name;
+      const dots = document.createElement("span");
+      dots.className = "dots";
+      dots.setAttribute("role", "img");
+      dots.setAttribute("aria-label", "Level " + s.level + " of 5");
+      for (let i = 1; i <= 5; i++) {
+        const d = document.createElement("i");
+        if (i <= s.level) d.className = "on";
+        dots.appendChild(d);
+      }
+      btn.append(label, dots);
+      btn.addEventListener("click", () => toggle(s.name));
+      li.appendChild(btn);
+      ul.appendChild(li);
+    });
+    div.append(h, ul);
+    $("groups").appendChild(div);
+  });
+
+  function renderItems(items, target) {
+    items.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "project";
+      li.dataset.skills = JSON.stringify(p.skills);
+      const h = document.createElement("h3");
+      h.textContent = p.title;
+      const d = document.createElement("p");
+      d.textContent = p.description;
+      const tags = document.createElement("div");
+      tags.className = "tags";
+      p.skills.forEach(sk => {
+        const t = document.createElement("span");
+        t.className = "tag"; t.textContent = sk; t.dataset.skill = sk;
+        tags.appendChild(t);
+      });
+      li.append(h, d, tags);
+      $(target).appendChild(li);
+    });
+  }
+  renderItems(SITE.projects, "projects");
+  renderItems(SITE.experience, "experience-list");
+  renderItems(SITE.education, "education-list");
+
+  function toggle(name) {
+    selected.has(name) ? selected.delete(name) : selected.add(name);
+    update();
+  }
+
+  function update() {
+    document.querySelectorAll(".skill").forEach(b =>
+      b.setAttribute("aria-pressed", selected.has(b.dataset.skill) ? "true" : "false"));
+    document.body.classList.toggle("filtering", selected.size > 0);
+    let count = 0, roles = 0;
+    document.querySelectorAll(".project").forEach(li => {
+      const skills = JSON.parse(li.dataset.skills);
+      const match = skills.some(s => selected.has(s));
+      li.classList.toggle("match", match);
+      if (match && li.parentElement.id === "projects") count++;
+      if (match && li.parentElement.id !== "projects") roles++;
+      li.querySelectorAll(".tag").forEach(t => t.classList.toggle("hit", selected.has(t.dataset.skill)));
+    });
+    $("clear").hidden = selected.size === 0;
+    $("projects-lede").textContent = selected.size
+      ? count + (count === 1 ? " project uses " : " projects use ") + [...selected].join(" or ") + (roles ? " (plus " + roles + " more below)." : ".")
+      : "What I have built.";
+  }
+
+  $("clear").addEventListener("click", () => { selected.clear(); update(); });
+</script>
+</body>
+</html>
